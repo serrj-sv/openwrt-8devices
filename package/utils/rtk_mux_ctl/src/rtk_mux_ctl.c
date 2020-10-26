@@ -518,6 +518,9 @@ int assign_dev_info(struct config_info *config)
 			} else if (strncmp(line, "komikan", 6) == 0) {
 				printf("Board: Komikan\n");
 				config->dev_info = &dev_komikan;
+			} else if (strncmp(line, "mgl03", 6) == 0) {
+				printf("Board: MGL03\n");
+				config->dev_info = &dev_mgl03;
 			} else {
 				printf("Unknown 8devices board\n");
 				return -1;

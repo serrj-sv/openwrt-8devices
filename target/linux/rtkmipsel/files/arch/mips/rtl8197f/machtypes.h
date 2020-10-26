@@ -19,6 +19,7 @@ enum ath79_mach_type {
 	RTL8197_MACH_GENERIC = 0,
 	RTL8197_MACH_KINKAN,			/* 8devices Kinkan devboard*/
 	RTL8197_MACH_KOMIKAN,			/* 8devices Komikan devboard*/
+	RTL8197_MACH_MGL03,			/* Xiaomi Gateway v3 (MGL03)*/
 };
 
 #endif /* _RTL8197_MACHTYPE_H */

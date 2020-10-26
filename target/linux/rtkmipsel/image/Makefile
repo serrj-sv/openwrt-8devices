@@ -8,10 +8,11 @@ include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/image.mk
 
 BlockSize=64k
-RAMFS_MAX_SIZE = 67108864	# 0x4000000
+#RAMFS_MAX_SIZE = 67108864	# 0x4000000
+RAMFS_MAX_SIZE = 10485760	# 0xA00000
 
 define mkcmdline
-board=$(shell echo $(1) | tr a-z A-Z) console=$(2),$(3) hwpart=0x$(4) mtdparts=m25p80:128k(boot),128k(hwpart),256k(config),-(firmware)
+board=$(shell echo $(1) | tr a-z A-Z) console=$(2),$(3) hwpart=0x$(4) mtdparts=rtk_nand:128k(boot),128k(hwpart),5888k(config),-(firmware)
 endef
 
 define test
@@ -121,6 +122,10 @@ endif
 ifeq ($(CONFIG_TARGET_rtkmipsel_rtl8197f_komikan),y)
 $(eval $(call SingleProfile,komikan,ttyS0,115200,0x84000000,80000,20000))
 endif
+ifeq ($(CONFIG_TARGET_rtkmipsel_rtl8197f_mgl03),y)
+$(eval $(call SingleProfile,mgl03,ttyS0,38400,0x80A00000,600000,20000))
+endif
+
 
 define Image/Build/Initramfs
 	$(call Image/Build/Profile/$(PROFILE)/initramfs)
