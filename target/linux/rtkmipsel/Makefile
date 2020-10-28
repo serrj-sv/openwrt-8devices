@@ -10,7 +10,7 @@ ARCH:=mipsel
 BOARD:=rtkmipsel
 BOARDNAME:=Realtek mipsel SOC
 SUBTARGETS:=rtl8197f
-FEATURES:=squashfs usb
+FEATURES:=squashfs usb nand ubifs
 KERNEL_PATCHVER:=3.18
 
 include $(INCLUDE_DIR)/target.mk

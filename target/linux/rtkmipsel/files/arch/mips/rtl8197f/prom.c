@@ -86,9 +86,6 @@ static __init void prom_init_cmdline(int argc, char **argv)
 	else{
 		strcpy(arcs_cmdline, "console=ttyS0,38400");
 	}
-	//dirty hardcode
-	strcpy(arcs_cmdline, "board=MGL03 console=ttyS0,38400 hwpart=0x20000 mtdparts=rtk_nand:128k(boot),128k(hwpart),5888k(config),-(firmware)");
-
 }
 
 /* Do basic initialization */
