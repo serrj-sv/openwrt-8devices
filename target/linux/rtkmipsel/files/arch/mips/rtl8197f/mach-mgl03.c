@@ -27,11 +27,20 @@
 
 static struct gpio_led mgl03_leds_gpio[] __initdata = {
 	{
-		.name		= "mgl03:green:status",
+		.name		= "mgl03:rgb_blue",
 		.gpio		= BSP_GPIO_PIN_G6,
-		.active_low	= 1,
+		.active_low	= 0,
 	},
-
+	{
+		.name		= "mgl03:rgb_green",
+		.gpio		= BSP_GPIO_PIN_H0,
+		.active_low	= 0,
+	},
+	{
+		.name		= "mgl03:rgb_red",
+		.gpio		= BSP_GPIO_PIN_H1,
+		.active_low	= 0,
+	}
 };
 
 static struct gpio_keys_button mgl03_buttons[] __initdata = {
@@ -40,17 +49,17 @@ static struct gpio_keys_button mgl03_buttons[] __initdata = {
 		.type		= EV_KEY,
 		.code		= BTN_1,
 		.debounce_interval = MGL03_BUTTONS_DEBOUNCE_INTERVAL,
-		.gpio		= BSP_GPIO_PIN_H0,
+		.gpio		= BSP_GPIO_PIN_A7,
 		.active_low	= 1,
 	}
 };
-
+/*
 struct gpio mgl03_phy_reset_pin_data = {
 	.gpio           = BSP_GPIO_PIN_H2,
 	.flags          = GPIOF_ACTIVE_LOW,
 	.label          = "GPIO_H2",
 };
-
+*/
 static struct platform_device __initdata *mgl03_devs[] = {
 	&rtl819x_phy_reset_pin,
 };
@@ -58,7 +67,7 @@ static struct platform_device __initdata *mgl03_devs[] = {
 
 #define SET_PINMUX(reg, field, val)\
 	REG32(reg) = (REG32(reg) & (~(0xF << field))) | (val << field)
-
+/*
 static void mgl03_set_sd_pinmux(void)
 {
 	SET_PINMUX(BSP_PIN_MUX_SEL15, 28, 0); // MMC_D0
@@ -69,8 +78,8 @@ static void mgl03_set_sd_pinmux(void)
 	SET_PINMUX(BSP_PIN_MUX_SEL16,  4, 0); // MMC_CLK
 	SET_PINMUX(BSP_PIN_MUX_SEL16,  0, 0); // MMC_CMD
 }
-
-#ifdef CONFIG_RTL819X_DW_SPI0
+*/
+#ifdef CONFIG_RTL819X_DW_SPI0_
 static struct spi_board_info dw_spi_devices[] __initdata = {
 	{
 		.modalias = "m25p80",
@@ -116,11 +125,12 @@ static void mgl03_set_spi_pinmux(void)
 }
 #endif //CONFIG_RTL819X_DW_SPI0
 
+
 static void __init mgl03_setup(void)
 {
 	int i;
 
-	rtl819x_phy_reset_pin.dev.platform_data = &mgl03_phy_reset_pin_data;
+//	rtl819x_phy_reset_pin.dev.platform_data = &mgl03_phy_reset_pin_data;
 
 	platform_add_devices(mgl03_devs, ARRAY_SIZE(mgl03_devs));
 
@@ -137,13 +147,13 @@ static void __init mgl03_setup(void)
 	rtl819x_add_device_gpio_buttons(-1, MGL03_BUTTONS_POLL_INTERVAL,
 				       ARRAY_SIZE(mgl03_buttons),
 				       mgl03_buttons);
-
-#ifdef CONFIG_RTL819X_DW_SPI0
-	mgl03_set_spi_pinmux();
-	spi_register_board_info(dw_spi_devices, ARRAY_SIZE(dw_spi_devices));
-#else
-	mgl03_set_sd_pinmux();
-#endif
+//
+//#ifdef CONFIG_RTL819X_DW_SPI0
+//	mgl03_set_spi_pinmux();
+//	spi_register_board_info(dw_spi_devices, ARRAY_SIZE(dw_spi_devices));
+//#else
+//	mgl03_set_sd_pinmux();
+//#endif
 }
 
 MIPS_MACHINE(RTL8197_MACH_MGL03, "MGL03", "Xiaomi Gateway v3 (MGL03)",

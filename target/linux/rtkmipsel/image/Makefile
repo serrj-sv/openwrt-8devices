@@ -13,7 +13,7 @@ RAMFS_MAX_SIZE = 10485760	# 0xA00000
 
 #MGL03 dont use this, cmdline is set via "kernel hack" in kernel_menuconfig
 define mkcmdline
-board=$(shell echo $(1) | tr a-z A-Z) console=$(2),$(3) hwpart=0x$(4) mtdparts=rtk_nand:128k(boot),128k(hwpart),256k(config),-(firmware)
+board=$(shell echo $(1) | tr a-z A-Z) console=$(2),$(3) hwpart=0x$(4) mtdparts=rtk_nand:128k(boot),256k(hwpart),128k(config),-(firmware)
 endef
 
 define test
@@ -124,7 +124,7 @@ ifeq ($(CONFIG_TARGET_rtkmipsel_rtl8197f_komikan),y)
 $(eval $(call SingleProfile,komikan,ttyS0,115200,0x84000000,80000,20000))
 endif
 ifeq ($(CONFIG_TARGET_rtkmipsel_rtl8197f_mgl03),y)
-$(eval $(call SingleProfile,mgl03,ttyS0,38400,0x80A00000,80000,20000))
+$(eval $(call SingleProfile,mgl03,ttyS0,38400,0x80A00000,600000,20000))
 endif
 
 

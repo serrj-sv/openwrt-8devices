@@ -15,7 +15,7 @@ get_status_led() {
 		status_led="komikan:green:led0"
 		;;
 	mgl03)
-		status_led="mgl03:green:status"
+		status_led="mgl03:rgb_green"
 		;;
 	esac
 }
