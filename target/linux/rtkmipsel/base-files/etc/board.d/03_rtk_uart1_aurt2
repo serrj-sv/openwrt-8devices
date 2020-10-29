@@ -1,0 +1,5 @@
+#!/bin/sh
+rtk_mux_ctl -c /etc/mgl03_uart.json
+modprobe rtk_uart1
+modprobe rtk_uart2
+

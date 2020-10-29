@@ -15,7 +15,7 @@ CONFIG_ARCH_WANT_IPC_PARSE_VERSION=y
 CONFIG_CEVT_R4K=y
 CONFIG_CLKDEV_LOOKUP=y
 CONFIG_CLONE_BACKWARDS=y
-CONFIG_CMDLINE="board=MGL03 console=ttyS0,38400 hwpart=0x20000 mtdparts=rtk_nand:128k(boot),256k(hwpart),128k(config),16M(firmware),16M(ubi),1k(dummy1),1k(dummy2),1M(homekit)"
+CONFIG_CMDLINE="board=MGL03 console=ttyS0,38400 hwpart=0x20000 mtdparts=rtk_nand:128k(boot),256k(hwpart),5760k(config),16M(firmware),16M(ubi),4k(d1),4k(d2),1M(homekit)"
 CONFIG_CMDLINE_BOOL=y
 CONFIG_CMDLINE_OVERRIDE=y
 CONFIG_COMPAT_BRK=y

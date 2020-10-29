@@ -18,7 +18,7 @@ komikan)
 	ucidef_set_led_netdev "wifi0" "WIFI 5G" "$board:green:led2" "wlan0"
 	;;
 mgl03)
-	ucidef_set_led_netdev "wifi" "WIFI" "$board:rgb_green" "wlan1"
+	ucidef_set_led_netdev "wifi" "WIFI" "$board:rgb_green" "wlan0"
 	;;
 esac
 
