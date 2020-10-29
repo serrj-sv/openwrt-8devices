@@ -124,7 +124,7 @@ ifeq ($(CONFIG_TARGET_rtkmipsel_rtl8197f_komikan),y)
 $(eval $(call SingleProfile,komikan,ttyS0,115200,0x84000000,80000,20000))
 endif
 ifeq ($(CONFIG_TARGET_rtkmipsel_rtl8197f_mgl03),y)
-$(eval $(call SingleProfile,mgl03,ttyS0,38400,0x80A00000,80000,20000))
+$(eval $(call SingleProfile,mgl03,ttyS0,38400,0x80A00000,600000,20000))
 endif
 
 
