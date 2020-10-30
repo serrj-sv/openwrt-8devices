@@ -1,0 +1,6 @@
+do_rtk_mux() {
+	board_name=$(cat /tmp/sysinfo/board_name)
+	[ $board_name = mgl03 ] && /usr/sbin/rtk_mux_ctl -c /etc/mgl03_mux_conf.json
+}
+
+boot_hook_add preinit_main do_rtk_mux

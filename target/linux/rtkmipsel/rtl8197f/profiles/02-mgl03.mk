@@ -22,16 +22,10 @@ define Profile/mgl03
 	  kmod-input-evdev \
 	  kmod-input-gpio-keys \
 	  kmod-ledtrig-netdev \
+	  kmod-uart1 \
+	  kmod-uart2 \
 	  kmod-mac80211 \
-	  kmod-mmc \
-	  kmod-rtk-sdmmc \
 	  kmod-rtl8192cd \
-	  kmod-scsi-core \
-	  kmod-usb-core \
-	  kmod-usb-ehci \
-	  kmod-usb-ohci \
-	  kmod-usb-storage \
-	  kmod-usb2 \
 	  rpcd \
 	  rpcd-mod-rrdns \
 	  rtk-mux-ctl \
