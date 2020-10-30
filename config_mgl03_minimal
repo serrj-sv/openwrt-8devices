@@ -86,6 +86,7 @@ CONFIG_PACKAGE_kmod-fs-exfat=m
 # CONFIG_PACKAGE_kmod-hermes-plx is not set
 # CONFIG_PACKAGE_kmod-hwmon-pwmfan is not set
 # CONFIG_PACKAGE_kmod-i2c-gpio-custom is not set
+CONFIG_PACKAGE_kmod-input-gpio-keys=m
 # CONFIG_PACKAGE_kmod-ipt-account is not set
 # CONFIG_PACKAGE_kmod-ipt-chaos is not set
 # CONFIG_PACKAGE_kmod-ipt-compat-xtables is not set
@@ -120,7 +121,6 @@ CONFIG_PACKAGE_kmod-fs-exfat=m
 # CONFIG_PACKAGE_kmod-libertas-usb is not set
 # CONFIG_PACKAGE_kmod-libipw is not set
 # CONFIG_PACKAGE_kmod-mac80211-hwsim is not set
-CONFIG_PACKAGE_kmod-mmc=m
 # CONFIG_PACKAGE_kmod-mmc-spi is not set
 # CONFIG_PACKAGE_kmod-mt7601u is not set
 # CONFIG_PACKAGE_kmod-mwifiex-pcie is not set
@@ -147,7 +147,6 @@ CONFIG_PACKAGE_kmod-rtc-pcf2123=m
 CONFIG_PACKAGE_kmod-rtc-pcf8563=m
 CONFIG_PACKAGE_kmod-rtc-pt7c4338=m
 CONFIG_PACKAGE_kmod-rtc-rs5c372a=m
-CONFIG_PACKAGE_kmod-rtk-sdmmc=m
 CONFIG_PACKAGE_kmod-rtk-uart1=y
 CONFIG_PACKAGE_kmod-rtk-uart2=y
 # CONFIG_PACKAGE_kmod-rtl8180 is not set
@@ -158,6 +157,12 @@ CONFIG_PACKAGE_kmod-rtk-uart2=y
 # CONFIG_PACKAGE_kmod-rtl8192se is not set
 # CONFIG_PACKAGE_kmod-rtl8xxxu is not set
 CONFIG_PACKAGE_kmod-rxrpc=m
+CONFIG_PACKAGE_kmod-scsi-core=y
+CONFIG_PACKAGE_kmod-usb-core=y
+CONFIG_PACKAGE_kmod-usb-ehci=y
+CONFIG_PACKAGE_kmod-usb-ohci=y
+CONFIG_PACKAGE_kmod-usb-storage=y
+CONFIG_PACKAGE_kmod-usb2=y
 # CONFIG_PACKAGE_kmod-wifidog-ng is not set
 # CONFIG_PACKAGE_kmod-zd1211rw is not set
 # CONFIG_PACKAGE_libatomic is not set

@@ -100,7 +100,6 @@ static int rtl819x_gpio_direction_input(struct gpio_chip *chip,
 	case BSP_GPIO_PIN_A0:
 	case BSP_GPIO_PIN_A4:
 	case BSP_GPIO_PIN_A6:
-	case BSP_GPIO_PIN_A7:
 	case BSP_GPIO_PIN_B0:
 	case BSP_GPIO_PIN_B6:
 	case BSP_GPIO_PIN_C0:
