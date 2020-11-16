@@ -8,11 +8,11 @@
 
 
 /*Choosing SPI-NAND I/O type*/
-#if 1
+#if 0
 #define NAND_SPI_USE_SIO //JSW:Verified OK
 #endif
 
-#if 0
+#if 1
 #define NAND_SPI_USE_DIO //Addr & Data : x2   //JSW:Verified OK
 //#define NAND_SPI_USE_DATA_IOx2  //Only Data : x2  //Supposed OK
 #endif

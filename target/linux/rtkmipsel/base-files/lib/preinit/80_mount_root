@@ -1,0 +1,26 @@
+#!/bin/sh
+# Copyright (C) 2006 OpenWrt.org
+# Copyright (C) 2010 Vertical Communications
+
+do_ubi_check() {
+	if [[ -c /dev/ubi0_0 && $(ubinfo  /dev/ubi0_0 | grep Name | awk '{ print $2 }') == "ubifs1" ]]; then
+		mount -t ubifs /dev/ubi0_0 /mnt
+		mkdir -p /mnt/upper /mnt/work
+		ln -f -s 2 /mnt/.fs_state
+		umount /mnt
+		ubirename /dev/ubi0 ubifs1 rootfs_data
+	fi
+}
+
+do_mount_root() {
+	mount_root
+	boot_run_hook preinit_mount_root
+	[ -f /sysupgrade.tgz ] && {
+		echo "- config restore -"
+		cd /
+		tar xzf /sysupgrade.tgz
+	}
+}
+
+[ "$INITRAMFS" = "1" ] || boot_hook_add preinit_main do_ubi_check
+[ "$INITRAMFS" = "1" ] || boot_hook_add preinit_main do_mount_root

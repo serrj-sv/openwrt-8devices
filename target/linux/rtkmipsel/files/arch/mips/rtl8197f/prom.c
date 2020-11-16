@@ -15,6 +15,8 @@
 #include "bspcpu.h"
 #include "bspchip.h"
 
+#define PARAM_ADDR      0x81f00000
+
 extern char arcs_cmdline[];
 
 #ifdef CONFIG_EARLY_PRINTK
@@ -73,29 +75,48 @@ void __init prom_free_prom_memory(void) //mips-ori
 {
 }
 
-static __init void prom_init_cmdline(int argc, char **argv)
+static __init void prom_init_cmdline(void)
 {
-	int i;
+  char *bl_cmdline = (char *)PARAM_ADDR;
 
-	if (argc) {
-		for (i = 0; i < argc; i++){
-			strlcat(arcs_cmdline, " ", sizeof(arcs_cmdline));
-			strlcat(arcs_cmdline, argv[i], sizeof(arcs_cmdline));
-		}
-	}
-	else{
-		strcpy(arcs_cmdline, "console=ttyS0,38400");
-	}
+  //If parameters passing from bootloader
+	if (strncmp(bl_cmdline,"board=",6) == 0) {
+    strcpy(arcs_cmdline, bl_cmdline);
+  //If on stock firmware
+  } else if (strncmp(bl_cmdline,"root=",5) == 0) {
+    strcpy(arcs_cmdline, "board=MGL03 "
+                         "mtdparts=rtk_nand:640k(bootloader),"
+                                            "128k(boot_info),"
+                                              "128k(factory),"
+                                             "128k(mtd_oops),"
+                                                    "1M(bbt),"
+                                                "3M(linux_1),"
+                                              "25M(rootfs_1),"
+                                                "3M(linux_2),"
+                                              "25M(rootfs_2),"
+                                                "1M(homekit),"
+                                                "57472k(ubi) ");
+    strcat(arcs_cmdline, bl_cmdline);
+  //Hardcode OpenWRT NAND default
+  } else {
+    strcpy(arcs_cmdline, "board=MGL03 console=ttyS0,38400 "
+                         "hwpart=0x80000 mtdparts=rtk_nand:512k(boot),"
+                                                        "256k(hwpart),"
+                                                           "128k(cfg),"
+                                                          "128k(oops),"
+                                                             "1M(bbt),"
+                                                           "2M(linux),"
+                                                         "10M(rootfs),"
+                                                          "100M(ubi)");
+  };
 }
 
 /* Do basic initialization */
 void __init prom_init(void) // mips-ori
 {
 	u_long mem_size;
-
 	bsp_serial_init(); // for debug
-	prom_init_cmdline(fw_arg0, (char **)fw_arg1);
-
+	prom_init_cmdline();
 	switch (REG32(0xB800000C) & 0x0F) {
 		case 0x06:
 		case 0x0C:

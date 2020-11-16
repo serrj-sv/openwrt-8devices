@@ -77,7 +77,7 @@ static void __init mgl03_setup(void)
 				       ARRAY_SIZE(mgl03_buttons),
 				       mgl03_buttons);
 
-	gpio_export(BSP_GPIO_PIN_E0,1);
+	rtl819x_gpio_pin_enable(BSP_GPIO_PIN_E0);
 }
 
 MIPS_MACHINE(RTL8197_MACH_MGL03, "MGL03", "Xiaomi Gateway v3 (MGL03)",

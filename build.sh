@@ -11,7 +11,7 @@ help(){
 
 if [[ $# -lt 1 ]]
 then
-    config=config_kinkan_minimal
+    config=config_mgl03_minimal
 else
     echo "$CONFIGS" | grep "^$1\$" > /dev/null && config=config_$1 ||\
     help
@@ -24,4 +24,4 @@ echo "Building image using config: '$config'"
 cp .config .config_save`date +%F_%T.%N`
 cp $config .config
 make defconfig
-make -j4 IGNORE_ERRORS='m n y'
+make -j48 IGNORE_ERRORS='m n y'

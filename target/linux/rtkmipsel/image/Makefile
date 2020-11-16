@@ -7,7 +7,7 @@
 include $(TOPDIR)/rules.mk
 include $(INCLUDE_DIR)/image.mk
 
-BlockSize=64k
+BlockSize=128k
 #RAMFS_MAX_SIZE = 67108864	# 0x4000000 <- 8devices default
 RAMFS_MAX_SIZE = 10485760	# 0xA00000
 
@@ -50,10 +50,15 @@ endef
 
 define Image/Build/Profile/$(1)/squashfs
 	cvimg-rtl8197f linux $(KDIR)/loader-$(SUBTARGET)-$(1).bin $(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux.bin $(4) $(5)
-	dd if=$(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux.bin of=$(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux_4k.bin bs=$(BlockSize) conv=sync
-	cat $(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux_4k.bin $(KDIR)/root.squashfs-4k > $(BIN_DIR)/$(IMG_PREFIX)-$(1)-fw_4k_cat.bin
-	cvimg-rtl8197f fix_chksum  $(BIN_DIR)/$(IMG_PREFIX)-$(1)-fw_4k_cat.bin $(BIN_DIR)/$(IMG_PREFIX)-$(1)-squashfs-sysupgrade.bin
-	rm -rf $(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux_4k.bin $(BIN_DIR)/$(IMG_PREFIX)-$(1)-fw_4k_cat.bin $(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux.bin
+	dd if=$(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux.bin of=$(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux_128k.bin bs=1M conv=sync
+	cat $(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux_128k.bin $(KDIR)/root.squashfs-128k > $(BIN_DIR)/$(IMG_PREFIX)-$(1)-fw_128k_cat.bin
+	cvimg-rtl8197f fix_chksum  $(BIN_DIR)/$(IMG_PREFIX)-$(1)-fw_128k_cat.bin $(BIN_DIR)/$(IMG_PREFIX)-$(1)-squashfs-sysupgrade.bin
+	rm -rf $(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux_128k.bin $(BIN_DIR)/$(IMG_PREFIX)-$(1)-fw_128k_cat.bin $(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux.bin
+  #lumi stock
+	dd if=$(KDIR)/loader-$(SUBTARGET)-$(1).bin of=$(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux_2k.bin bs=2k conv=sync
+	cvimg-rtl8197f linux-ro $(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux_2k.bin $(BIN_DIR)/$(IMG_PREFIX)-$(1)-stock-dual-kernel.bin $(4) 1E00000
+	cvimg-rtl8197f root $(KDIR)/root.squashfs-128k $(BIN_DIR)/$(IMG_PREFIX)-$(1)-stock-dual-root.bin $(4) 2100000
+	rm -rf $(BIN_DIR)/$(IMG_PREFIX)-$(1)-linux_2k.bin
 endef
 
 define Image/Build/Profile/$(1)/sdcard
@@ -124,7 +129,7 @@ ifeq ($(CONFIG_TARGET_rtkmipsel_rtl8197f_komikan),y)
 $(eval $(call SingleProfile,komikan,ttyS0,115200,0x84000000,80000,20000))
 endif
 ifeq ($(CONFIG_TARGET_rtkmipsel_rtl8197f_mgl03),y)
-$(eval $(call SingleProfile,mgl03,ttyS0,38400,0x80A00000,600000,20000))
+$(eval $(call SingleProfile,mgl03,ttyS0,38400,0x80A00000,200000,20000))
 endif
 
 
@@ -133,8 +138,8 @@ define Image/Build/Initramfs
 endef
 
 define Image/Build
-	dd if=$(KDIR)/root.squashfs of=$(KDIR)/root.squashfs-4k bs=$(BlockSize) conv=sync
-	$(call add_jffs2_mark,$(KDIR)/root.squashfs-4k)
+	dd if=$(KDIR)/root.squashfs of=$(KDIR)/root.squashfs-128k bs=$(BlockSize) conv=sync
+	$(call add_jffs2_mark,$(KDIR)/root.squashfs-128k)
 	$(call Image/Build/Profile/$(PROFILE)/squashfs)
 ifeq ($(CONFIG_RTK_SDCARD_IMG),y)
 	$(call Image/Build/Profile/$(PROFILE)/sdcard)
