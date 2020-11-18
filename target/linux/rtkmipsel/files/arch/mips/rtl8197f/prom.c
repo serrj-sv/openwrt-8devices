@@ -84,11 +84,11 @@ static __init void prom_init_cmdline(void)
     strcpy(arcs_cmdline, bl_cmdline);
   //If on stock firmware
   } else if (strncmp(bl_cmdline,"root=",5) == 0) {
-    strcpy(arcs_cmdline, "board=MGL03 "
+    strcpy(arcs_cmdline, "board=MGL03 hwpart=0xe0000 "
                          "mtdparts=rtk_nand:640k(bootloader),"
                                             "128k(boot_info),"
                                               "128k(factory),"
-                                             "128k(mtd_oops),"
+                                               "128k(hwpart),"
                                                     "1M(bbt),"
                                                 "3M(linux_1),"
                                               "25M(rootfs_1),"
