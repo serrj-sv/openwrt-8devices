@@ -1234,7 +1234,7 @@
 //-------------------------------------------------------------
 // to prevent broadcast storm attacks
 //-------------------------------------------------------------
-//#define PREVENT_BROADCAST_STORM	1
+#define PREVENT_BROADCAST_STORM	1
 
 //-------------------------------------------------------------
 // to prevent ARP spoofing attacks
